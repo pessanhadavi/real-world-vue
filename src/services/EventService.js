@@ -15,4 +15,7 @@ export default {
   getEvents() {
     return apiClient.get("/events"); // Get request calling events
   },
+  getEvent(id) {
+    return apiClient.get("/events/" + id);
+  },
 };
