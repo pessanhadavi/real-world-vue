@@ -2,21 +2,26 @@
   <div>
     <h1>Create an Event, {{ user.name }}</h1>
     <p>This event was created by {{ user.id }}</p>
-    <p>There are {{ catLength }} categories</p>
+    <p>{{ getEventById(2) }}</p>
+    <!-- <p>There are {{ catLength }} categories</p>
     <ul>
       <li v-for="cat in categories" :key="cat">{{ cat }}</li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   computed: {
-    catLength() {
-      return this.$store.getters.catLength;
-    },
+    // getEvent() { The code below is a simpler form of this one
+    //   return this.$store.getters.getEventById;
+    // },
+    ...mapGetters(["getEventById"]),
+    // catLength() {
+    //   return this.$store.getters.catLength;
+    // },
     ...mapState(["user", "categories"]),
     // The code above is a simpler form of the below one
     // ({ user: "user", If it is a top level state (no dots), you can use this notation
