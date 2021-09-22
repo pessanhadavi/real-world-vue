@@ -29,15 +29,5 @@ export default new Vuex.Store({
     getEventById: (state) => (id) => {
       return state.events.find((event) => event.id === id);
     },
-    // catLength: (state) => {
-    //   return state.categories.length;
-    // },
-    // doneTodos: (state) => {
-    //   return state.todos.filter((todo) => todo.done);
-    // },
-    // activeTodosCount: (state, getters) => {
-    //   return state.todos.length - getters.doneTodos.length;
-    //   // return state.todos.filter((todo) => !todo.done).length; -> This is an easier way (no getters)
-    // },
   },
 });
