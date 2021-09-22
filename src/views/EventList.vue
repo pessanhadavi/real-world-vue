@@ -30,7 +30,7 @@ export default {
   created() {
     // Calling the action
     this.perPage = 3;
-    this.$store.dispatch("fetchEvents", {
+    this.$store.dispatch("event/fetchEvents", {
       perPage: this.perPage,
       page: this.page,
     });
