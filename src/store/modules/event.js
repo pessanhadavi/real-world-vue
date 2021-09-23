@@ -31,7 +31,7 @@ export const actions = {
         commit("ADD_EVENT", event);
         const notification = {
           type: "sucess",
-          message: "TYour event has been created",
+          message: "Your event has been created",
         };
         dispatch("notification/add", notification, { root: true });
       })
