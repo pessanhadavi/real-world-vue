@@ -63,10 +63,12 @@ export const actions = {
 
     if (event) {
       commit("SET_EVENT", event);
+      return event;
     } else {
       return EventService.getEvent(id) // Here the return ensure API promise gets returned, so then() will work on router config.
         .then((response) => {
           commit("SET_EVENT", response.data);
+          return response.data;
         })
         .catch((error) => {
           const notification = {
