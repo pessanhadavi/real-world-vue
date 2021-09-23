@@ -75,7 +75,7 @@ export default {
             name: "event-show",
             params: { id: this.event.id },
           });
-          this.event.createFreshEventObject();
+          this.event = this.createFreshEventObject();
         })
         .catch(() => {
           console.log("There was a problema creating your event");
