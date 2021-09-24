@@ -23,7 +23,15 @@
         type="text"
         placeholder="Title"
         class="field"
+        :class="{ error: $v.event.title.$error }"
+        @blur="$v.event.title.$touch()"
       />
+
+      <template v-if="$v.event.title.$error">
+        <p v-if="!$v.event.title.required" class="errorMessage">
+          Title is required.
+        </p>
+      </template>
 
       <BaseInput
         label="Description"
@@ -31,7 +39,16 @@
         type="text"
         placeholder="Description"
         class="field"
+        :class="{ error: $v.event.description.$error }"
+        @blur="$v.event.description.$touch()"
       />
+
+      <template v-if="$v.event.description.$error">
+        <p v-if="!$v.event.description.required" class="errorMessage">
+          Description is required.
+        </p>
+      </template>
+
       <h3>Where is your event?</h3>
       <BaseInput
         label="Location"
@@ -39,12 +56,32 @@
         type="text"
         placeholder="Location"
         class="field"
+        :class="{ error: $v.event.location.$error }"
+        @blur="$v.event.location.$touch()"
       />
+
+      <template v-if="$v.event.location.$error">
+        <p v-if="!$v.event.location.required" class="errorMessage">
+          Location is required.
+        </p>
+      </template>
+
       <h3>When is your event?</h3>
       <div class="field">
         <label>Date</label>
-        <datepicker v-model="event.date" placeholder="Select a date" />
+        <datepicker
+          v-model="event.date"
+          placeholder="Select a date"
+          :input-class="{ error: $v.event.date.$error }"
+          @opened="$v.event.date.$touch()"
+        />
       </div>
+
+      <template v-if="$v.event.date.$error">
+        <p v-if="!$v.event.date.required" class="errorMessage">
+          Date is required.
+        </p>
+      </template>
 
       <BaseSelect
         label="Select a time"
@@ -62,7 +99,15 @@
       </template>
 
       <!-- <input type="submit" class="button -fill-gradient" value="Submit" /> -->
-      <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
+      <BaseButton
+        type="submit"
+        buttonClass="-fill-gradient"
+        :disabled="$v.$anyError"
+        >Submit
+      </BaseButton>
+      <p v-if="$v.$anyError" class="errorMessage">
+        Please fill out thr required field(s).
+      </p>
     </form>
   </div>
 </template>
@@ -99,19 +144,22 @@ export default {
   },
   methods: {
     createEvent() {
-      NProgress.start();
-      this.$store
-        .dispatch("event/createEvent", this.event)
-        .then(() => {
-          this.$router.push({
-            name: "event-show",
-            params: { id: this.event.id },
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        NProgress.start();
+        this.$store
+          .dispatch("event/createEvent", this.event)
+          .then(() => {
+            this.$router.push({
+              name: "event-show",
+              params: { id: this.event.id },
+            });
+            this.event = this.createFreshEventObject();
+          })
+          .catch(() => {
+            NProgress.done();
           });
-          this.event = this.createFreshEventObject();
-        })
-        .catch(() => {
-          NProgress.done();
-        });
+      }
     },
     createFreshEventObject() {
       const user = this.$store.state.user.user;
