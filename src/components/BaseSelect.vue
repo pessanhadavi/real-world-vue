@@ -3,7 +3,7 @@
     <label v-if="label">{{ label }}</label>
     <select
       :value="value"
-      @input="updateValue"
+      @change="updateValue"
       v-bind="$attrs"
       v-on="$listeners"
     >
