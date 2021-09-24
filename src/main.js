@@ -5,6 +5,7 @@ import store from "./store";
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";
 import "nprogress/nprogress.css";
+import Vuelidate from "vuelidate";
 
 const requireComponent = require.context(
   // The relative path of the components folder
@@ -39,6 +40,8 @@ requireComponent.keys().forEach((fileName) => {
     componentConfig.default || componentConfig
   );
 });
+
+Vue.use(Vuelidate);
 
 Vue.config.productionTip = false;
 
