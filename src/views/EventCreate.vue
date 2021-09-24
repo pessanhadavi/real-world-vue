@@ -9,11 +9,13 @@
         :class="{ error: $v.event.category.$error }"
         @blur="$v.event.category.$touch()"
       />
+
       <template v-if="$v.event.category.$error">
         <p v-if="!$v.event.category.required" class="errorMessage">
           Category is required.
         </p>
       </template>
+
       <h3>Name describe your event</h3>
       <BaseInput
         label="Title"
@@ -22,6 +24,7 @@
         placeholder="Title"
         class="field"
       />
+
       <BaseInput
         label="Description"
         v-model="event.description"
@@ -42,12 +45,22 @@
         <label>Date</label>
         <datepicker v-model="event.date" placeholder="Select a date" />
       </div>
+
       <BaseSelect
         label="Select a time"
         :options="times"
         v-model="event.time"
         class="field"
+        :class="{ error: $v.event.time.$error }"
+        @blur="$v.event.time.$touch()"
       />
+
+      <template v-if="$v.event.time.$error">
+        <p v-if="!$v.event.time.required" class="errorMessage">
+          Time is required.
+        </p>
+      </template>
+
       <!-- <input type="submit" class="button -fill-gradient" value="Submit" /> -->
       <BaseButton type="submit" buttonClass="-fill-gradient">Submit</BaseButton>
     </form>
