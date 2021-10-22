@@ -5,7 +5,7 @@
   >
     <div class="event-card -shadow">
       <span class="eyebrow">@{{ event.time }} on {{ event.date | date }}</span>
-      <h4 class="title">{{ event.title }}</h4>
+      <h4 class="title">Event: {{ event.title }}</h4>
       <BaseIcon name="users">{{ event.attendees.length }} attending</BaseIcon>
     </div>
   </router-link>
